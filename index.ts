@@ -1,6 +1,4 @@
 import { LuaArray, LuaObj } from "@wowts/lua";
-import { AceModule } from "@wowts/tsaddon";
-import { Constructor, Library } from "@wowts/tslib";
 import { UIAnchor, UIFrame, UIPosition, UIRegion } from "@wowts/wow-mock";
 
 export type Widgeted<T> = UIFrame & { obj?: T };
@@ -129,7 +127,7 @@ export class AceGUI {
     public RegisterAsWidget<T extends { frame: UIFrame}>(widget: new() => T): new() => Widgeted<T & AceGUIWidgetBase> {
         throw Error("Not implemented");
     }
-    public RegisterWidgetType<T>(name: string, widget: AceGUIWidgetBase, version: number): void {
+    public RegisterWidgetType(name: string, widget: AceGUIWidgetBase, version: number): void {
     }
     public RegisterLayout(name: string, layoutFunc: LayoutFunc): void {
     }
