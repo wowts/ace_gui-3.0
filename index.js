@@ -1,6 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class AceGUIWidgetBase {
+    constructor() {
+        this.fullHeight = false;
+        this.fullWidth = false;
+        this.userData = {};
+    }
     SetParent(parent) { }
     SetCallback(name, func) { }
     Fire(name, ...args) { }
@@ -49,6 +54,11 @@ class AceGUIWidgetBase {
 }
 exports.AceGUIWidgetBase = AceGUIWidgetBase;
 class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
+    constructor() {
+        super(...arguments);
+        this.frame = undefined;
+        this.content = undefined;
+    }
     PauseLayout() {
     }
     ResumeLayout() {

@@ -3,8 +3,7 @@ import { UIAnchor, UIFrame, UIPosition, UIRegion } from "@wowts/wow-mock";
 export declare type Widgeted<T> = UIFrame & {
     obj?: T;
 };
-export interface AceLayout {
-}
+export declare type AceLayout = string;
 export declare type LayoutFunc = (content: AceGUIWidgetBase, children: LuaArray<AceGUIWidgetBase>) => void;
 export declare class AceGUIWidgetBase {
     private fullHeight;
@@ -32,8 +31,8 @@ export declare class AceGUIWidgetBase {
     SetFullWidth(isFull: boolean): void;
 }
 export declare class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
-    frame: Widgeted<AceGUIWidgetContainerBase>;
-    content: Widgeted<AceGUIWidgetContainerBase>;
+    frame: Widgeted<AceGUIWidgetContainerBase> | undefined;
+    content: Widgeted<AceGUIWidgetContainerBase> | undefined;
     PauseLayout(): void;
     ResumeLayout(): void;
     PerformLayout(): void;
@@ -84,7 +83,7 @@ export declare class AceGUI {
     RegisterAsWidget<T extends {
         frame: UIFrame;
     }>(widget: new () => T): new () => Widgeted<T & AceGUIWidgetBase>;
-    RegisterWidgetType<T>(name: string, widget: AceGUIWidgetBase, version: number): void;
+    RegisterWidgetType(name: string, widget: AceGUIWidgetBase, version: number): void;
     RegisterLayout(name: string, layoutFunc: LayoutFunc): void;
     GetLayout(name: string): LayoutFunc;
     GetNextWidgetNum(type: string): number;

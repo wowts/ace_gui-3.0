@@ -2,15 +2,14 @@ import { LuaArray, LuaObj } from "@wowts/lua";
 import { UIAnchor, UIFrame, UIPosition, UIRegion } from "@wowts/wow-mock";
 
 export type Widgeted<T> = UIFrame & { obj?: T };
-export interface AceLayout {
-}
+export type AceLayout = string;
 
 export type LayoutFunc = (content: AceGUIWidgetBase, children: LuaArray<AceGUIWidgetBase>) => void;
 
 export class AceGUIWidgetBase {
-    private fullHeight: boolean;
-    private fullWidth: boolean;
-    private userData: LuaObj<any>;
+    private fullHeight: boolean = false;
+    private fullWidth: boolean = false;
+    private userData: LuaObj<any> = {};
     public SetParent(parent: AceGUIWidgetBase): void {}
     public SetCallback(name: string, func: (widget: AceGUIWidgetBase) => void): void {}
     public Fire(name: string, ...args: any[]): void {}
@@ -42,7 +41,7 @@ export class AceGUIWidgetBase {
         this.userData[key] = value;
     }
     public GetUserData<T>(key: string): T {
-        return <T> this.userData[key];
+        return this.userData[key] as T;
     }
     public IsFullHeight(): boolean {
         return this.fullHeight;
@@ -59,8 +58,8 @@ export class AceGUIWidgetBase {
 }
 
 export class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
-    public frame: Widgeted<AceGUIWidgetContainerBase>;
-    public content: Widgeted<AceGUIWidgetContainerBase>;
+    public frame: Widgeted<AceGUIWidgetContainerBase> | undefined = undefined;
+    public content: Widgeted<AceGUIWidgetContainerBase> | undefined = undefined;
     public PauseLayout(): void {
     }
     public ResumeLayout(): void {
