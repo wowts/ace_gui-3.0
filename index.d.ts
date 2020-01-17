@@ -10,7 +10,7 @@ export declare class AceGUIWidgetBase {
     private fullWidth;
     private userData;
     SetParent(parent: AceGUIWidgetBase): void;
-    SetCallback(name: string, func: (widget: AceGUIWidgetBase) => void): void;
+    SetCallback(name: string, func: (widget: this) => void): void;
     Fire(name: string, ...args: any[]): void;
     SetWidth(width: number): void;
     SetRelativeWidth(width: number): void;
@@ -31,8 +31,8 @@ export declare class AceGUIWidgetBase {
     SetFullWidth(isFull: boolean): void;
 }
 export declare class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
-    frame: Widgeted<AceGUIWidgetContainerBase> | undefined;
-    content: Widgeted<AceGUIWidgetContainerBase> | undefined;
+    frame: Widgeted<AceGUIWidgetContainerBase>;
+    content: Widgeted<AceGUIWidgetContainerBase>;
     PauseLayout(): void;
     ResumeLayout(): void;
     PerformLayout(): void;

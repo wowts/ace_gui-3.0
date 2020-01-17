@@ -1,6 +1,6 @@
 {
   "name": "@wowts/ace_gui-3.0",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "@wowts/tslib": "^1.1.0"
   },
   "devDependencies": {
-    "typescript": "^3.0.1"
+    "typescript": "^3.7.4"
   },
   "repository": {
     "type": "git",

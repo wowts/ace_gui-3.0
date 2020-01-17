@@ -11,7 +11,7 @@ export class AceGUIWidgetBase {
     private fullWidth: boolean = false;
     private userData: LuaObj<any> = {};
     public SetParent(parent: AceGUIWidgetBase): void {}
-    public SetCallback(name: string, func: (widget: AceGUIWidgetBase) => void): void {}
+    public SetCallback(name: string, func: (widget: this) => void): void {}
     public Fire(name: string, ...args: any[]): void {}
     public SetWidth(width: number): void {}
     public SetRelativeWidth(width: number): void {}
@@ -58,8 +58,8 @@ export class AceGUIWidgetBase {
 }
 
 export class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
-    public frame: Widgeted<AceGUIWidgetContainerBase> | undefined = undefined;
-    public content: Widgeted<AceGUIWidgetContainerBase> | undefined = undefined;
+    public frame!: Widgeted<AceGUIWidgetContainerBase>;
+    public content!: Widgeted<AceGUIWidgetContainerBase>;
     public PauseLayout(): void {
     }
     public ResumeLayout(): void {

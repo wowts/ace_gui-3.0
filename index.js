@@ -54,11 +54,6 @@ class AceGUIWidgetBase {
 }
 exports.AceGUIWidgetBase = AceGUIWidgetBase;
 class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
-    constructor() {
-        super(...arguments);
-        this.frame = undefined;
-        this.content = undefined;
-    }
     PauseLayout() {
     }
     ResumeLayout() {
