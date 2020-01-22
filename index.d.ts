@@ -9,8 +9,8 @@ export declare class AceGUIWidgetBase {
     private fullHeight;
     private fullWidth;
     private userData;
-    SetParent(parent: AceGUIWidgetBase): void;
     SetCallback(name: string, func: (widget: this) => void): void;
+    SetParent(parent: AceGUIWidgetBase): void;
     Fire(name: string, ...args: any[]): void;
     SetWidth(width: number): void;
     SetRelativeWidth(width: number): void;
@@ -33,6 +33,7 @@ export declare class AceGUIWidgetBase {
 export declare class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
     frame: Widgeted<AceGUIWidgetContainerBase>;
     content: Widgeted<AceGUIWidgetContainerBase>;
+    constructor();
     PauseLayout(): void;
     ResumeLayout(): void;
     PerformLayout(): void;
@@ -49,7 +50,7 @@ export interface AceGUIWidgetCheckBox extends AceGUIWidgetBase {
     SetTriState(type: "radio" | "checkbox"): void;
     ToggleChecked(): void;
     SetLabel(label: string): void;
-    SetDescrption(desc: string): void;
+    SetDescription(desc: string): void;
     SetImage(path: string, ...coords: number[]): void;
 }
 export declare type AceGUIWidgetDropDownItemType = "Dropdown-Item-Toggle" | "Dropdown-Item-Header" | "Dropdown-Item-Execute" | "Dropdown-Item-Menu" | "Dropdown-Item-Separator";

@@ -10,8 +10,9 @@ export class AceGUIWidgetBase {
     private fullHeight: boolean = false;
     private fullWidth: boolean = false;
     private userData: LuaObj<any> = {};
-    public SetParent(parent: AceGUIWidgetBase): void {}
     public SetCallback(name: string, func: (widget: this) => void): void {}
+    public SetParent(parent: AceGUIWidgetBase): void {
+    }
     public Fire(name: string, ...args: any[]): void {}
     public SetWidth(width: number): void {}
     public SetRelativeWidth(width: number): void {}
@@ -60,6 +61,11 @@ export class AceGUIWidgetBase {
 export class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
     public frame!: Widgeted<AceGUIWidgetContainerBase>;
     public content!: Widgeted<AceGUIWidgetContainerBase>;
+    constructor() {
+        super();
+        this.frame = <any>{};
+        this.content = <any>{};
+    }
     public PauseLayout(): void {
     }
     public ResumeLayout(): void {
@@ -86,8 +92,79 @@ export interface AceGUIWidgetCheckBox extends AceGUIWidgetBase {
     SetTriState(type: "radio" | "checkbox"): void;
     ToggleChecked(): void;
     SetLabel(label: string): void;
-    SetDescrption(desc: string): void;
+    SetDescription(desc: string): void;
     SetImage(path: string, ...coords: number[]): void;
+}
+
+class Dropdown extends AceGUIWidgetBase implements AceGUIWidgetDropDown {
+    value: any = null;
+    multi = false;
+    SetDisabled(disabled: boolean): void {
+    }
+    ClearFocus(): void {
+    }
+    SetText(text: string): void {
+        throw new Error("Method not implemented.");
+    }
+    SetLabel(text: string): void {
+        throw new Error("Method not implemented.");
+    }
+    SetValue<T>(value: T): void {
+        this.value = value;
+    }
+    GetValue<T>(): T {
+        return this.value as T;
+    }
+    SetItemValue<T>(item: string, value: T): void {
+    }
+    SetItemDisabled(item: string, disabled: boolean): void {
+    }
+    SetList<T>(list: LuaObj<T>, order?: LuaArray<string> | undefined, itemType?: "Dropdown-Item-Toggle" | "Dropdown-Item-Header" | "Dropdown-Item-Execute" | "Dropdown-Item-Menu" | "Dropdown-Item-Separator" | undefined): void {
+    }
+    AddItem<T>(value: T, text: string, itemType?: "Dropdown-Item-Toggle" | "Dropdown-Item-Header" | "Dropdown-Item-Execute" | "Dropdown-Item-Menu" | "Dropdown-Item-Separator" | undefined): void {
+    }
+    SetMultiselect(multi: boolean): void {
+        this.multi = multi;
+    }
+    GetMultiselect(): boolean {
+        return this.multi;
+    }
+}
+
+class CheckBox extends AceGUIWidgetBase implements AceGUIWidgetCheckBox {
+    private disabled: boolean = false;
+    private value = false;
+    private description = "";
+    isFullHeight: boolean = false;
+    isFullWidth: boolean = false;
+
+    SetDisabled(disabled: boolean): void {
+        this.disabled = disabled;
+    }
+    GetDisabled() {
+        return this.disabled;
+    }
+    SetValue(value: boolean): void {
+        this.value = value;
+    }
+    GetValue(): boolean {
+        return this.value;
+    }
+    SetTriState(type: "radio" | "checkbox"): void {
+    }
+    ToggleChecked(): void {
+        this.value = !this.value;
+    }
+    SetLabel(label: string): void {
+    }
+    SetDescription(desc: string): void {
+        this.description = desc;
+    }
+    GetDescription() {
+        return this.description;
+    }
+    SetImage(path: string, ...coords: number[]): void {
+    }
 }
 
 export type AceGUIWidgetDropDownItemType = "Dropdown-Item-Toggle" | "Dropdown-Item-Header"
@@ -115,6 +192,8 @@ export class AceGUI {
     public Create(name: "CheckBox"): AceGUIWidgetCheckBox;
     public Create(name: "Dropdown"): AceGUIWidgetDropDown;
     public Create(name: string): AceGUIWidgetBase {
+        if (name === "CheckBox") return new CheckBox();
+        if (name === "Dropdown") return new Dropdown();
         return new AceGUIWidgetBase();
     }
     public Release(widget: AceGUIWidgetBase): void {}

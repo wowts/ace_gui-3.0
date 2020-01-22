@@ -6,8 +6,9 @@ class AceGUIWidgetBase {
         this.fullWidth = false;
         this.userData = {};
     }
-    SetParent(parent) { }
     SetCallback(name, func) { }
+    SetParent(parent) {
+    }
     Fire(name, ...args) { }
     SetWidth(width) { }
     SetRelativeWidth(width) { }
@@ -54,6 +55,11 @@ class AceGUIWidgetBase {
 }
 exports.AceGUIWidgetBase = AceGUIWidgetBase;
 class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
+    constructor() {
+        super();
+        this.frame = {};
+        this.content = {};
+    }
     PauseLayout() {
     }
     ResumeLayout() {
@@ -72,6 +78,80 @@ class AceGUIWidgetContainerBase extends AceGUIWidgetBase {
     }
 }
 exports.AceGUIWidgetContainerBase = AceGUIWidgetContainerBase;
+class Dropdown extends AceGUIWidgetBase {
+    constructor() {
+        super(...arguments);
+        this.value = null;
+        this.multi = false;
+    }
+    SetDisabled(disabled) {
+    }
+    ClearFocus() {
+    }
+    SetText(text) {
+        throw new Error("Method not implemented.");
+    }
+    SetLabel(text) {
+        throw new Error("Method not implemented.");
+    }
+    SetValue(value) {
+        this.value = value;
+    }
+    GetValue() {
+        return this.value;
+    }
+    SetItemValue(item, value) {
+    }
+    SetItemDisabled(item, disabled) {
+    }
+    SetList(list, order, itemType) {
+    }
+    AddItem(value, text, itemType) {
+    }
+    SetMultiselect(multi) {
+        this.multi = multi;
+    }
+    GetMultiselect() {
+        return this.multi;
+    }
+}
+class CheckBox extends AceGUIWidgetBase {
+    constructor() {
+        super(...arguments);
+        this.disabled = false;
+        this.value = false;
+        this.description = "";
+        this.isFullHeight = false;
+        this.isFullWidth = false;
+    }
+    SetDisabled(disabled) {
+        this.disabled = disabled;
+    }
+    GetDisabled() {
+        return this.disabled;
+    }
+    SetValue(value) {
+        this.value = value;
+    }
+    GetValue() {
+        return this.value;
+    }
+    SetTriState(type) {
+    }
+    ToggleChecked() {
+        this.value = !this.value;
+    }
+    SetLabel(label) {
+    }
+    SetDescription(desc) {
+        this.description = desc;
+    }
+    GetDescription() {
+        return this.description;
+    }
+    SetImage(path, ...coords) {
+    }
+}
 class AceGUI {
     constructor() {
         this.WidgetBase = AceGUIWidgetBase;
@@ -79,6 +159,10 @@ class AceGUI {
         this.layouts = {};
     }
     Create(name) {
+        if (name === "CheckBox")
+            return new CheckBox();
+        if (name === "Dropdown")
+            return new Dropdown();
         return new AceGUIWidgetBase();
     }
     Release(widget) { }
